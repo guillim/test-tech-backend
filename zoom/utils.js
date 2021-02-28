@@ -29,7 +29,7 @@ const createMeeting = async (obj) => {
   //   "password":"whatever",
   //   "agenda":"Your zoom is scheduled for any topic you want."
   // });
-  const data = JSON.stringify({obj})
+  const data = JSON.stringify(obj)
   return await axios.post('https://api.zoom.us/v2/users/'+zoomUserId+'/meetings',data,{headers: {'Content-Type': 'application/json'}})
     .then(function (response) {
       console.log(response.data);
