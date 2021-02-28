@@ -3,6 +3,10 @@ var bodyParser = require('body-parser')
 require('dotenv').config()
 const app = express();
 const port = process.env.PORT || 3000;
+const cors = require('cors')
+const corsOptions = {
+  origin: '*',
+}
 
 const utils = require('./zoom/utils')
 
@@ -12,7 +16,8 @@ app.get('/', (req, res) => {
   res.send('Hello ! the api for avizio test is up')
 })
 
-app.get('/meetings', async (req, res) => {
+// here we allow cors for this route so that react can fetch them. For more security, we should specify "localhost:3000" or any other endpoint who could use this api
+app.get('/meetings', cors(), async (req, res) => {
   const meetings = await utils.getMeetings()
   // console.log('meetings',meetings);
   res.json({status : 'ok', statusCode: 200, meetings : meetings})
